@@ -6958,6 +6958,7 @@ var $evancz$elm_playground$Playground$group = function (shapes) {
 		$evancz$elm_playground$Playground$Group(shapes));
 };
 var $evancz$elm_playground$Playground$lightBlue = $evancz$elm_playground$Playground$Hex('#729fcf');
+var $evancz$elm_playground$Playground$lightRed = $evancz$elm_playground$Playground$Hex('#ef2929');
 var $evancz$elm_playground$Playground$moveY = F2(
 	function (dy, _v0) {
 		var x = _v0.a;
@@ -7008,21 +7009,25 @@ var $evancz$elm_playground$Playground$words = F2(
 			1,
 			A2($evancz$elm_playground$Playground$Words, color, string));
 	});
-var $author$project$LifeGame$drawPauseButton = $evancz$elm_playground$Playground$group(
-	_List_fromArray(
-		[
-			A2(
-			$evancz$elm_playground$Playground$moveY,
-			($author$project$LifeGame$windowHeight * 0.5) + 64,
-			A3($evancz$elm_playground$Playground$rectangle, $evancz$elm_playground$Playground$lightBlue, 256, 64)),
-			A2(
-			$evancz$elm_playground$Playground$moveY,
-			($author$project$LifeGame$windowHeight * 0.5) + 64,
-			A2(
-				$evancz$elm_playground$Playground$scale,
-				4,
-				A2($evancz$elm_playground$Playground$words, $evancz$elm_playground$Playground$black, 'PAUSE')))
-		]));
+var $author$project$LifeGame$drawPauseButton = function (model) {
+	var text = model.pause ? 'RESUME' : 'PAUSE';
+	var color = model.pause ? $evancz$elm_playground$Playground$lightRed : $evancz$elm_playground$Playground$lightBlue;
+	return $evancz$elm_playground$Playground$group(
+		_List_fromArray(
+			[
+				A2(
+				$evancz$elm_playground$Playground$moveY,
+				($author$project$LifeGame$windowHeight * 0.5) + 64,
+				A3($evancz$elm_playground$Playground$rectangle, color, 300, 64)),
+				A2(
+				$evancz$elm_playground$Playground$moveY,
+				($author$project$LifeGame$windowHeight * 0.5) + 64,
+				A2(
+					$evancz$elm_playground$Playground$scale,
+					4,
+					A2($evancz$elm_playground$Playground$words, $evancz$elm_playground$Playground$black, text)))
+			]));
+};
 var $evancz$elm_playground$Playground$move = F3(
 	function (dx, dy, _v0) {
 		var x = _v0.a;
@@ -7069,10 +7074,10 @@ var $author$project$LifeGame$drawPos = function (_v0) {
 			$author$project$LifeGame$size));
 };
 var $author$project$LifeGame$view = F2(
-	function (computer, model) {
+	function (_v0, model) {
 		return A2(
 			$elm$core$List$cons,
-			$author$project$LifeGame$drawPauseButton,
+			$author$project$LifeGame$drawPauseButton(model),
 			A2(
 				$elm$core$List$cons,
 				A3(

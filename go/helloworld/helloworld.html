@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HelloWorldGo</title>
+    <script src="wasm_exec.js"></script>
+    <script>
+        // Polyfill(古いブラウザでサポートされていない機能の代替実装)
+        if (!WebAssembly.instantiateStreaming) {
+            WebAssembly.instantiateStreaming = async (resp, importObject) => {
+                const source = await (await resp).arrayBuffer();
+                return await WebAssembly.instantiate(source, importObject);
+            };
+        }
+        // Goのインスタンス生成
+        const go = new Go();
+        // WebAssemblyでwasmファイルを読み込み、Goのインスタンスを実行
+        WebAssembly.instantiateStreaming(fetch("helloworld.wasm"), go.importObject).then((result) => {
+            go.run(result.instance);
+        });
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
